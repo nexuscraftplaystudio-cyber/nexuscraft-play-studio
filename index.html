@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusCraft Play Studio 2026 - Mobile Apps & 3D Game Development</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cyan: '#00f2fe',
+                            blue: '#4facfe',
+                            purple: '#7f00ff',
+                            dark: '#0a0d14',
+                            card: '#121824'
+                        }
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 3s infinite alternate',
+                        'float': 'float 4s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%': { boxShadow: '0 0 15px rgba(0, 242, 254, 0.2)' },
+                            '100%': { boxShadow: '0 0 35px rgba(127, 0, 255, 0.6)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #080b11;
+            color: #f3f4f6;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(18, 24, 36, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #7f00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-btn {
+            background: linear-gradient(135deg, #00f2fe 0%, #7f00ff 100%);
+            transition: all 0.3s ease;
+        }
+        .gradient-btn:hover {
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+            transform: translateY(-2px);
+        }
+        .modal-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: #00f2fe;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="selection:bg-cyan-500 selection:text-black">
+
+    <!-- STARFIELD BACKGROUND CANVAS -->
+    <canvas id="starfield" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- HEADER NAVIGATION -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-gray-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl gradient-btn flex items-center justify-center text-black font-bold text-xl shadow-lg group-hover:rotate-12 transition-transform">
+                    N
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-wider text-white">NEXUSCRAFT</span>
+                    <span class="text-xs block text-cyan-400 font-semibold tracking-widest uppercase">PLAY STUDIO 2026</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+                <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+                <a href="#games" class="hover:text-cyan-400 transition-colors">Games & Apps</a>
+                <a href="#tech" class="hover:text-cyan-400 transition-colors">Technologies</a>
+                <a href="#minigame" class="hover:text-cyan-400 transition-colors">Arcade Zone</a>
+                <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+            </nav>
+
+            <!-- CTA Button -->
+            <a href="#contact" class="hidden md:inline-flex items-center space-x-2 gradient-btn text-black font-bold px-5 py-2.5 rounded-xl text-sm">
+                <span>Let's Build</span>
+                <i class="fa-solid fa-rocket"></i>
+            </a>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="md:hidden text-gray-300 hover:text-white text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-b border-gray-800 px-6 py-4 space-y-4 text-center">
+            <a href="#about" class="block text-gray-300 hover:text-cyan-400 py-2">About</a>
+            <a href="#games" class="block text-gray-300 hover:text-cyan-400 py-2">Games & Apps</a>
+            <a href="#tech" class="block text-gray-300 hover:text-cyan-400 py-2">Technologies</a>
+            <a href="#minigame" class="block text-gray-300 hover:text-cyan-400 py-2">Arcade Zone</a>
+            <a href="#contact" class="block text-cyan-400 font-bold py-2">Contact Us</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="about" class="relative pt-36 pb-20 md:pt-48 md:pb-32 px-4 max-w-7xl mx-auto z-10 flex flex-col items-center text-center">
+        <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-panel text-cyan-400 text-xs sm:text-sm font-semibold mb-8 border border-cyan-500/30 animate-pulse">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+            <span>OFFICIAL STUDIO PORTAL • 2026 EDITION</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-tight max-w-5xl mb-6">
+            Crafting Next-Gen <span class="gradient-text">3D Games</span> & High-Performance <span class="gradient-text">Mobile Apps</span>
+        </h1>
+
+        <p class="text-gray-400 text-base sm:text-lg max-w-2xl mb-10 leading-relaxed">
+            Welcome to <strong class="text-white">NexusCraft Play Studio 2026</strong>. We engineer immersive realtime games, interactive digital experiences, and scalable Android applications powered by cutting-edge engines.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+            <a href="#games" class="w-full sm:w-auto gradient-btn text-black font-extrabold px-8 py-4 rounded-xl flex items-center justify-center space-x-3 text-base shadow-lg">
+                <i class="fa-solid fa-gamepad text-lg"></i>
+                <span>Explore Projects</span>
+            </a>
+            <a href="#minigame" class="w-full sm:w-auto glass-panel hover:bg-gray-800/80 text-white font-semibold px-8 py-4 rounded-xl flex items-center justify-center space-x-3 text-base border border-gray-700 transition-all">
+                <i class="fa-solid fa-play text-cyan-400"></i>
+                <span>Play Live Demo</span>
+            </a>
+        </div>
+
+        <!-- Quick Stats Banner -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 w-full max-w-4xl">
+            <div class="glass-panel p-6 rounded-2xl border border-gray-800">
+                <h3 class="text-3xl font-extrabold text-cyan-400">Unity 6</h3>
+                <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Engine Power</p>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl border border-gray-800">
+                <h3 class="text-3xl font-extrabold text-purple-400">UE 5.4</h3>
+                <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Graphics Tech</p>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl border border-gray-800">
+                <h3 class="text-3xl font-extrabold text-cyan-400">Android</h3>
+                <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">App Framework</p>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl border border-gray-800">
+                <h3 class="text-3xl font-extrabold text-purple-400">2026</h3>
+                <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Active Vision</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PROJECTS / GAMES SHOWCASE -->
+    <section id="games" class="py-20 relative z-10 max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white">Featured <span class="gradient-text">Showcase</span></h2>
+            <p class="text-gray-400 mt-3">Our flagship mobile applications & 3D real-time game titles</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Project Card 1 -->
+            <div class="glass-panel rounded-3xl overflow-hidden border border-gray-800 hover:border-cyan-500/50 transition-all duration-300 group hover:-translate-y-2">
+                <div class="h-64 bg-gradient-to-br from-purple-900/40 to-slate-900 relative flex items-center justify-center p-6 overflow-hidden">
+                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-500/10 via-transparent to-transparent"></div>
+                    <i class="fa-solid fa-chess-knight text-8xl text-cyan-400/20 group-hover:scale-110 group-hover:text-cyan-400/40 transition-all duration-500"></i>
+                    <span class="absolute top-4 left-4 bg-purple-600/80 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">3D Strategy Game</span>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">War Of Sultans</h3>
+                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                        An ambitious 3D Real-Time Strategy (RTS) mobile game built using Unity Engine and Unreal Engine 5 workflows. Features custom RTS camera controls, dynamic historical terrain, interactive combat units, and immersive audio logic.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="text-xs bg-gray-800 text-cyan-300 px-3 py-1 rounded-lg">Unity 6</span>
+                        <span class="text-xs bg-gray-800 text-purple-300 px-3 py-1 rounded-lg">Unreal Engine 5</span>
+                        <span class="text-xs bg-gray-800 text-gray-300 px-3 py-1 rounded-lg">FMOD Sound</span>
+                        <span class="text-xs bg-gray-800 text-gray-300 px-3 py-1 rounded-lg">Blender 3D</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Card 2 (UPDATED TO NEXUS COIN) -->
+            <div class="glass-panel rounded-3xl overflow-hidden border border-gray-800 hover:border-cyan-500/50 transition-all duration-300 group hover:-translate-y-2">
+                <div class="h-64 bg-gradient-to-br from-amber-900/40 to-slate-900 relative flex items-center justify-center p-6 overflow-hidden">
+                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent"></div>
+                    <i class="fa-solid fa-coins text-8xl text-amber-400/20 group-hover:scale-110 group-hover:text-amber-400/40 transition-all duration-500"></i>
+                    <span class="absolute top-4 left-4 bg-amber-600/80 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Android App & Rewards</span>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-2xl font-bold text-white group-hover:text-amber-400 transition-colors">Nexus Coin</h3>
+                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                        A modern Kotlin-backed Android application featuring interactive task tracking, secure virtual rewards, server-side validation, duplicate transaction protection, and monetized cloud services.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <span class="text-xs bg-gray-800 text-amber-300 px-3 py-1 rounded-lg">Android Studio</span>
+                        <span class="text-xs bg-gray-800 text-purple-300 px-3 py-1 rounded-lg">Kotlin</span>
+                        <span class="text-xs bg-gray-800 text-cyan-300 px-3 py-1 rounded-lg">Firebase App Check</span>
+                        <span class="text-xs bg-gray-800 text-gray-300 px-3 py-1 rounded-lg">Cloud Rewards</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECH STACK MATRIX -->
+    <section id="tech" class="py-20 relative z-10 glass-panel border-y border-gray-800/80">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white">Development <span class="gradient-text">Arsenal</span></h2>
+                <p class="text-gray-400 mt-3">Industry-standard tools powering NexusCraft Play Studio</p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 text-center">
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-cyan-400/50 transition-all">
+                    <i class="fa-brands fa-unity text-4xl text-white mb-3"></i>
+                    <h4 class="font-bold text-sm text-gray-200">Unity Engine</h4>
+                    <p class="text-xs text-gray-500 mt-1">Game Dev</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-cyan-400/50 transition-all">
+                    <i class="fa-solid fa-cubes text-4xl text-purple-400 mb-3"></i>
+                    <h4 class="font-bold text-sm text-gray-200">Unreal Engine</h4>
+                    <p class="text-xs text-gray-500 mt-1">High-End 3D</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-cyan-400/50 transition-all">
+                    <i class="fa-brands fa-android text-4xl text-green-400 mb-3"></i>
+                    <h4 class="font-bold text-sm text-gray-200">Android Kotlin</h4>
+                    <p class="text-xs text-gray-500 mt-1">Native Apps</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-cyan-400/50 transition-all">
+                    <i class="fa-brands fa-flutter text-4xl text-cyan-400 mb-3"></i>
+                    <h4 class="font-bold text-sm text-gray-200">FlutterFlow</h4>
+                    <p class="text-xs text-gray-500 mt-1">Cross Platform</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-cyan-400/50 transition-all">
+                    <i class="fa-solid fa-fire text-4xl text-amber-500 mb-3"></i>
+                    <h4 class="font-bold text-sm text-gray-200">Firebase</h4>
+                    <p class="text-xs text-gray-500 mt-1">Backend DB</p>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-cyan-400/50 transition-all">
+                    <i class="fa-solid fa-shapes text-4xl text-orange-400 mb-3"></i>
+                    <h4 class="font-bold text-sm text-gray-200">Blender 3D</h4>
+                    <p class="text-xs text-gray-500 mt-1">Assets & Rigging</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE ARCADE ZONE / MINI GAME DEMO -->
+    <section id="minigame" class="py-20 relative z-10 max-w-5xl mx-auto px-4">
+        <div class="glass-panel p-6 sm:p-10 rounded-3xl border border-cyan-500/30 text-center relative overflow-hidden">
+            <div class="mb-6">
+                <span class="bg-cyan-500/20 text-cyan-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Live Interactive Arcade</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-2">Nexus Space Defender</h2>
+                <p class="text-gray-400 text-sm mt-1">Move your ship with <kbd class="bg-gray-800 px-2 py-0.5 rounded text-cyan-400">←</kbd> <kbd class="bg-gray-800 px-2 py-0.5 rounded text-cyan-400">→</kbd> or Click/Touch controls to shoot meteorites!</p>
+            </div>
+
+            <!-- Canvas Game Screen -->
+            <div class="relative w-full max-w-lg mx-auto h-72 bg-black/80 rounded-2xl border border-gray-700 overflow-hidden shadow-2xl flex flex-col items-center justify-center">
+                <canvas id="arcadeCanvas" class="w-full h-full block"></canvas>
+                <div id="gameOverlay" class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center p-4">
+                    <i class="fa-solid fa-rocket text-5xl text-cyan-400 mb-3 animate-bounce"></i>
+                    <h3 class="text-xl font-bold text-white mb-2">Ready Player One?</h3>
+                    <button onclick="startGame()" class="gradient-btn text-black font-extrabold px-6 py-2.5 rounded-xl text-sm shadow-lg">
+                        START GAME
+                    </button>
+                </div>
+            </div>
+
+            <!-- Game Score Bar -->
+            <div class="flex items-center justify-between max-w-lg mx-auto mt-4 px-4 py-2 glass-panel rounded-xl text-sm">
+                <div class="text-gray-400">Score: <span id="gameScore" class="text-cyan-400 font-bold text-base">0</span></div>
+                <div class="text-gray-400">Status: <span id="gameStatus" class="text-green-400 font-semibold">Idle</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT & INQUIRY SECTION -->
+    <section id="contact" class="py-20 relative z-10 max-w-4xl mx-auto px-4">
+        <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-gray-800 shadow-2xl">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Start Your Project With <span class="gradient-text">NexusCraft</span></h2>
+                <p class="text-gray-400 text-sm mt-2">Have a mobile app idea or 3D game concept for 2026? Let's connect.</p>
+            </div>
+
+            <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Your Name</label>
+                        <input type="text" required placeholder="John Doe" class="w-full bg-slate-900/80 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Your Email</label>
+                        <input type="email" required placeholder="john@example.com" class="w-full bg-slate-900/80 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Project Category</label>
+                    <select class="w-full bg-slate-900/80 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors">
+                        <option>3D Game Development (Unity / UE5)</option>
+                        <option>Android Application (Kotlin / Compose)</option>
+                        <option>Cross-Platform App Development</option>
+                        <option>UI/UX & Brand Design</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Project Details</label>
+                    <textarea rows="4" required placeholder="Tell us about your project requirements..." class="w-full bg-slate-900/80 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors"></textarea>
+                </div>
+
+                <button type="submit" class="w-full gradient-btn text-black font-extrabold py-4 rounded-xl text-base shadow-xl flex items-center justify-center space-x-2">
+                    <span>Send Project Inquiry</span>
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+            <div id="formSuccess" class="hidden mt-4 p-4 rounded-xl bg-green-500/20 border border-green-500/40 text-green-300 text-center text-sm font-semibold">
+                ✓ Message received! NexusCraft Play Studio will respond shortly.
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-12 relative z-10 glass-panel border-t border-gray-800 text-center text-gray-500 text-sm">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-2">
+                <div class="w-6 h-6 rounded-lg gradient-btn flex items-center justify-center text-black font-bold text-xs">N</div>
+                <span class="text-white font-bold">NEXUSCRAFT PLAY STUDIO</span>
+            </div>
+            
+            <!-- Legal Policy Navigation -->
+            <div class="flex flex-wrap justify-center gap-6 text-xs text-gray-400 font-medium">
+                <button onclick="openModal('security')" class="hover:text-cyan-400 transition-colors">Security Policy</button>
+                <button onclick="openModal('privacy')" class="hover:text-cyan-400 transition-colors">Privacy Policy</button>
+                <button onclick="openModal('terms')" class="hover:text-cyan-400 transition-colors">Terms & Conditions</button>
+            </div>
+
+            <p class="text-xs">© 2026 NexusCraft Play Studio. All rights reserved.</p>
+            <div class="flex space-x-4 text-gray-400 text-lg">
+                <a href="#" class="hover:text-cyan-400"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="hover:text-cyan-400"><i class="fa-brands fa-android"></i></a>
+                <a href="#" class="hover:text-cyan-400"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LEGAL POLICIES POPUP MODAL -->
+    <div id="legalModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-3xl rounded-3xl border border-cyan-500/40 p-6 sm:p-8 flex flex-col max-h-[85vh]">
+            <div class="flex items-center justify-between pb-4 border-b border-gray-800">
+                <h3 id="modalTitle" class="text-2xl font-extrabold text-white">Policy Title</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white text-2xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="modalContent" class="modal-scroll overflow-y-auto py-6 text-gray-300 text-sm leading-relaxed space-y-4">
+                <!-- Content injected dynamically via JS -->
+            </div>
+            <div class="pt-4 border-t border-gray-800 text-right">
+                <button onclick="closeModal()" class="gradient-btn text-black font-bold px-6 py-2 rounded-xl text-sm">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // LEGAL MODAL DATA & FUNCTIONS
+        const modalData = {
+            security: {
+                title: "Security Policy",
+                content: `
+                    <h4 class="text-lg font-bold text-cyan-400 mb-2">NexusCraft Play Studio Security Safeguards</h4>
+                    <p>NexusCraft Play Studio uses reasonable technical and administrative safeguards designed to protect user accounts, virtual rewards, transactions, and application services across all our games and mobile applications. These safeguards may include authentication, server-side reward validation, advertising-provider verification, duplicate-transaction protection, Firebase App Check, platform integrity controls, access restrictions, and monitoring for suspicious activity.</p>
+                    <p class="mt-3">No internet-connected service can guarantee absolute security. Users must protect their login credentials and must not attempt to bypass, manipulate, reverse-engineer, exploit, automate, or interfere with any application's security, reward, advertising, mining, or server systems published by NexusCraft Play Studio.</p>
+                    <p class="mt-3">Suspected fraudulent or abusive activity across any of our apps or games may result in reward rejection, investigation, suspension, or account termination in accordance with our applicable Terms & Conditions.</p>
+                `
+            },
+            privacy: {
+                title: "Privacy Policy",
+                content: `
+                    <h4 class="text-lg font-bold text-cyan-400 mb-2">Privacy Policy - NexusCraft Play Studio (2026)</h4>
+                    <p>NexusCraft Play Studio respects user privacy. We do not sell or rent personal information to third parties. Data collected through our games and applications (including Firebase telemetry, ad IDs, and account information) is strictly used for account validation, security verification, and game/app service optimization.</p>
+                    <p class="mt-3">We partner with verified advertising providers and cloud services to ensure secure transactions and server validation across all titles published under NexusCraft Play Studio. By using our mobile applications and services, you consent to our data safety standards.</p>
+                `
+            },
+            terms: {
+                title: "Terms & Conditions",
+                content: `
+                    <h4 class="text-lg font-bold text-cyan-400 mb-2">Terms & Conditions</h4>
+                    <p>By accessing or using any game, app, or service provided by NexusCraft Play Studio, you agree to comply with our platform policies. Automated bots, exploits, reverse-engineering, or unauthorized modifications to application code and virtual currency/reward servers are strictly prohibited.</p>
+                    <p class="mt-3">NexusCraft Play Studio reserves the right to terminate accounts or restrict access to any user involved in fraudulent activity or security exploitation without prior notice.</p>
+                `
+            }
+        };
+
+        function openModal(type) {
+            const data = modalData[type];
+            if (data) {
+                document.getElementById('modalTitle').innerText = data.title;
+                document.getElementById('modalContent').innerHTML = data.content;
+                document.getElementById('legalModal').classList.remove('hidden');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('legalModal').classList.add('hidden');
+        }
+
+        // MOBILE MENU TOGGLE
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // CONTACT FORM HANDLER
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            document.getElementById('formSuccess').classList.remove('hidden');
+            document.getElementById('contactForm').reset();
+            setTimeout(() => {
+                document.getElementById('formSuccess').classList.add('hidden');
+            }, 5000);
+        }
+
+        // STARFIELD BACKGROUND ANIMATION
+        const starCanvas = document.getElementById('starfield');
+        const starCtx = starCanvas.getContext('2d');
+        let stars = [];
+
+        function resizeStarfield() {
+            starCanvas.width = window.innerWidth;
+            starCanvas.height = window.innerHeight;
+            stars = [];
+            for (let i = 0; i < 120; i++) {
+                stars.push({
+                    x: Math.random() * starCanvas.width,
+                    y: Math.random() * starCanvas.height,
+                    size: Math.random() * 1.8,
+                    speed: Math.random() * 0.5 + 0.1,
+                    alpha: Math.random()
+                });
+            }
+        }
+        window.addEventListener('resize', resizeStarfield);
+        resizeStarfield();
+
+        function animateStars() {
+            starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+            starCtx.fillStyle = '#ffffff';
+            stars.forEach(star => {
+                starCtx.globalAlpha = star.alpha;
+                starCtx.beginPath();
+                starCtx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                starCtx.fill();
+                star.y += star.speed;
+                if (star.y > starCanvas.height) star.y = 0;
+            });
+            requestAnimationFrame(animateStars);
+        }
+        animateStars();
+
+        // MINI GAME DEMO (SPACE DEFENDER)
+        const gCanvas = document.getElementById('arcadeCanvas');
+        const gCtx = gCanvas.getContext('2d');
+        let gameRunning = false;
+        let score = 0;
+        let playerX = 150;
+        let bullets = [];
+        let meteors = [];
+
+        function startGame() {
+            gCanvas.width = gCanvas.clientWidth;
+            gCanvas.height = gCanvas.clientHeight;
+            playerX = gCanvas.width / 2;
+            bullets = [];
+            meteors = [];
+            score = 0;
+            document.getElementById('gameScore').innerText = score;
+            document.getElementById('gameStatus').innerText = 'Playing';
+            document.getElementById('gameStatus').className = 'text-cyan-400 font-semibold';
+            document.getElementById('gameOverlay').classList.add('hidden');
+            gameRunning = true;
+            gameLoop();
+        }
+
+        // Mouse/Touch controls
+        gCanvas.addEventListener('mousemove', (e) => {
+            const rect = gCanvas.getBoundingClientRect();
+            playerX = e.clientX - rect.left;
+        });
+
+        gCanvas.addEventListener('click', () => {
+            if (gameRunning) {
+                bullets.push({ x: playerX, y: gCanvas.height - 20 });
+            }
+        });
+
+        // Keyboard controls
+        window.addEventListener('keydown', (e) => {
+            if (!gameRunning) return;
+            if (e.key === 'ArrowLeft') playerX = Math.max(20, playerX - 15);
+            if (e.key === 'ArrowRight') playerX = Math.min(gCanvas.width - 20, playerX + 15);
+            if (e.key === ' ') bullets.push({ x: playerX, y: gCanvas.height - 20 });
+        });
+
+        function gameLoop() {
+            if (!gameRunning) return;
+            gCtx.fillStyle = '#050811';
+            gCtx.fillRect(0, 0, gCanvas.width, gCanvas.height);
+
+            // Draw Ship
+            gCtx.fillStyle = '#00f2fe';
+            gCtx.beginPath();
+            gCtx.moveTo(playerX, gCanvas.height - 25);
+            gCtx.lineTo(playerX - 12, gCanvas.height - 5);
+            gCtx.lineTo(playerX + 12, gCanvas.height - 5);
+            gCtx.fill();
+
+            // Spawn Meteors
+            if (Math.random() < 0.04) {
+                meteors.push({ x: Math.random() * (gCanvas.width - 20) + 10, y: 0, speed: Math.random() * 2 + 1 });
+            }
+
+            // Update Bullets
+            bullets.forEach((b, bi) => {
+                b.y -= 5;
+                gCtx.fillStyle = '#7f00ff';
+                gCtx.fillRect(b.x - 2, b.y, 4, 8);
+
+                // Collision Detection
+                meteors.forEach((m, mi) => {
+                    if (Math.hypot(b.x - m.x, b.y - m.y) < 15) {
+                        bullets.splice(bi, 1);
+                        meteors.splice(mi, 1);
+                        score += 10;
+                        document.getElementById('gameScore').innerText = score;
+                    }
+                });
+            });
+
+            // Update Meteors
+            meteors.forEach((m, mi) => {
+                m.y += m.speed;
+                gCtx.fillStyle = '#ff4b5c';
+                gCtx.beginPath();
+                gCtx.arc(m.x, m.y, 10, 0, Math.PI * 2);
+                gCtx.fill();
+
+                // Game Over check
+                if (m.y > gCanvas.height) {
+                    gameRunning = false;
+                    document.getElementById('gameStatus').innerText = 'Game Over';
+                    document.getElementById('gameStatus').className = 'text-red-400 font-semibold';
+                    document.getElementById('gameOverlay').classList.remove('hidden');
+                }
+            });
+
+            requestAnimationFrame(gameLoop);
+        }
+    </script>
+</body>
+</html>

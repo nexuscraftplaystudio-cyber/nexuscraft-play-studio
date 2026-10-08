@@ -1,588 +1,2528 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusCraft Play Studio 2026 - Mobile Apps & 3D Game Development</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom Tailwind Configuration -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            cyan: '#00f2fe',
-                            blue: '#4facfe',
-                            purple: '#7f00ff',
-                            dark: '#0a0d14',
-                            card: '#121824'
-                        }
-                    },
-                    animation: {
-                        'pulse-glow': 'pulseGlow 3s infinite alternate',
-                        'float': 'float 4s ease-in-out infinite'
-                    },
-                    keyframes: {
-                        pulseGlow: {
-                            '0%': { boxShadow: '0 0 15px rgba(0, 242, 254, 0.2)' },
-                            '100%': { boxShadow: '0 0 35px rgba(127, 0, 255, 0.6)' }
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-10px)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            background-color: #080b11;
-            color: #f3f4f6;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            overflow-x: hidden;
-        }
-        .glass-panel {
-            background: rgba(18, 24, 36, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #7f00ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .gradient-btn {
-            background: linear-gradient(135deg, #00f2fe 0%, #7f00ff 100%);
-            transition: all 0.3s ease;
-        }
-        .gradient-btn:hover {
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
-            transform: translateY(-2px);
-        }
-        .modal-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .modal-scroll::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.6);
-        }
-        .modal-scroll::-webkit-scrollbar-thumb {
-            background: #00f2fe;
-            border-radius: 4px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="NexusCraft Play Studio 2026 - Games, mobile applications, rewards technology and next-generation digital experiences.">
+<meta name="keywords" content="NexusCraft Play Studio, War of Sultan, Nexus Coin, games, Android apps, game development, mobile applications">
+<meta name="author" content="NexusCraft Play Studio">
+
+<title>NexusCraft Play Studio 2026 | Games & Digital Experiences</title>
+
+<style>
+
+/* =========================================================
+   NEXUSCRAFT PLAY STUDIO 2026
+   SINGLE FILE WEBSITE
+   ========================================================= */
+
+:root{
+    --bg:#05070d;
+    --bg2:#080d18;
+    --card:rgba(13,20,34,.78);
+    --card2:rgba(18,27,45,.9);
+    --cyan:#00eaff;
+    --blue:#258cff;
+    --purple:#7b35ff;
+    --gold:#ffc857;
+    --red:#ff4757;
+    --green:#32e875;
+    --text:#f4f7fb;
+    --muted:#98a6ba;
+    --border:rgba(255,255,255,.09);
+    --shadow:0 20px 60px rgba(0,0,0,.45);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:
+        radial-gradient(circle at 15% 15%,rgba(0,234,255,.08),transparent 30%),
+        radial-gradient(circle at 85% 20%,rgba(123,53,255,.10),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    overflow-x:hidden;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+#particles{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:-5;
+    pointer-events:none;
+}
+
+.grid-bg{
+    position:fixed;
+    inset:0;
+    z-index:-4;
+    pointer-events:none;
+    opacity:.15;
+    background-image:
+        linear-gradient(rgba(0,234,255,.12) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,234,255,.12) 1px,transparent 1px);
+    background-size:55px 55px;
+    mask-image:linear-gradient(to bottom,black,transparent 90%);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1000;
+    height:78px;
+    background:rgba(4,7,13,.72);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+}
+
+.nav{
+    width:min(1240px,92%);
+    height:100%;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo-mark{
+    width:43px;
+    height:43px;
+    border-radius:13px;
+    display:grid;
+    place-items:center;
+    color:#001014;
+    font-weight:1000;
+    font-size:22px;
+    background:linear-gradient(135deg,var(--cyan),var(--blue),var(--purple));
+    box-shadow:0 0 30px rgba(0,234,255,.28);
+}
+
+.logo-text strong{
+    display:block;
+    letter-spacing:1.5px;
+    font-size:16px;
+}
+
+.logo-text small{
+    color:var(--cyan);
+    font-size:9px;
+    letter-spacing:2px;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:28px;
+    list-style:none;
+}
+
+.nav-links a{
+    color:#b9c4d5;
+    font-size:13px;
+    font-weight:700;
+    transition:.25s;
+}
+
+.nav-links a:hover{
+    color:var(--cyan);
+}
+
+.nav-cta{
+    padding:11px 18px;
+    border-radius:12px;
+    background:linear-gradient(135deg,var(--cyan),var(--purple));
+    color:#02060b;
+    font-weight:900;
+    font-size:13px;
+    box-shadow:0 8px 25px rgba(0,234,255,.18);
+}
+
+.menu-btn{
+    display:none;
+    border:0;
+    background:none;
+    color:white;
+    font-size:25px;
+}
+
+/* =========================================================
+   COMMON
+   ========================================================= */
+
+.container{
+    width:min(1180px,92%);
+    margin:auto;
+}
+
+section{
+    position:relative;
+    padding:105px 0;
+}
+
+.section-label{
+    color:var(--cyan);
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:11px;
+    font-weight:900;
+    margin-bottom:13px;
+}
+
+.section-title{
+    font-size:clamp(34px,5vw,58px);
+    line-height:1.02;
+    font-weight:1000;
+    letter-spacing:-2px;
+}
+
+.section-title span{
+    background:linear-gradient(100deg,var(--cyan),var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.section-subtitle{
+    max-width:680px;
+    color:var(--muted);
+    line-height:1.8;
+    margin-top:17px;
+    font-size:15px;
+}
+
+.glass{
+    background:var(--card);
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(15px);
+    -webkit-backdrop-filter:blur(15px);
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:14px 22px;
+    border-radius:13px;
+    border:1px solid transparent;
+    font-weight:900;
+    font-size:13px;
+    transition:.3s;
+}
+
+.btn-primary{
+    background:linear-gradient(135deg,var(--cyan),var(--blue),var(--purple));
+    color:#02060b;
+}
+
+.btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 35px rgba(0,234,255,.25);
+}
+
+.btn-outline{
+    border-color:rgba(255,255,255,.15);
+    background:rgba(255,255,255,.04);
+    color:white;
+}
+
+.btn-outline:hover{
+    border-color:var(--cyan);
+    color:var(--cyan);
+    transform:translateY(-3px);
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero{
+    min-height:100vh;
+    padding-top:145px;
+    display:flex;
+    align-items:center;
+}
+
+.hero-layout{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:50px;
+    align-items:center;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    border:1px solid rgba(0,234,255,.22);
+    background:rgba(0,234,255,.06);
+    color:var(--cyan);
+    border-radius:100px;
+    padding:9px 14px;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+}
+
+.pulse-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 15px var(--green);
+}
+
+.hero h1{
+    margin-top:22px;
+    font-size:clamp(46px,6vw,82px);
+    line-height:.98;
+    letter-spacing:-4px;
+    font-weight:1000;
+}
+
+.hero h1 .gradient{
+    background:linear-gradient(110deg,var(--cyan),var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.hero-text{
+    margin-top:25px;
+    max-width:650px;
+    color:var(--muted);
+    line-height:1.85;
+    font-size:16px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:13px;
+    flex-wrap:wrap;
+    margin-top:31px;
+}
+
+.hero-stats{
+    display:flex;
+    gap:35px;
+    margin-top:45px;
+}
+
+.stat strong{
+    display:block;
+    font-size:25px;
+    color:white;
+}
+
+.stat span{
+    display:block;
+    color:#718096;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    margin-top:4px;
+}
+
+/* HERO VISUAL */
+
+.hero-visual{
+    position:relative;
+    min-height:510px;
+    display:grid;
+    place-items:center;
+}
+
+.dev-scene{
+    position:relative;
+    width:min(480px,100%);
+    height:440px;
+    border-radius:35px;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 50% 35%,rgba(0,234,255,.18),transparent 30%),
+        linear-gradient(145deg,#07101d,#0c1020 55%,#12091f);
+    border:1px solid rgba(0,234,255,.16);
+    box-shadow:
+        0 40px 90px rgba(0,0,0,.6),
+        inset 0 0 80px rgba(0,234,255,.03);
+}
+
+.dev-grid{
+    position:absolute;
+    inset:0;
+    background-image:
+        linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+    background-size:35px 35px;
+    transform:perspective(400px) rotateX(55deg) scale(1.5);
+    transform-origin:center bottom;
+    opacity:.35;
+}
+
+.monitor{
+    position:absolute;
+    width:285px;
+    height:180px;
+    left:50%;
+    top:82px;
+    transform:translateX(-50%);
+    background:#03060b;
+    border:7px solid #202c3d;
+    border-radius:15px;
+    box-shadow:0 0 50px rgba(0,234,255,.14);
+}
+
+.monitor-screen{
+    position:absolute;
+    inset:8px;
+    overflow:hidden;
+    background:
+        linear-gradient(120deg,rgba(0,234,255,.1),transparent),
+        #02060c;
+}
+
+.code-lines{
+    padding:15px;
+    font-family:monospace;
+    font-size:9px;
+    line-height:1.8;
+    color:#57eaff;
+}
+
+.code-lines i{
+    color:#a678ff;
+    font-style:normal;
+}
+
+.monitor-stand{
+    position:absolute;
+    width:65px;
+    height:45px;
+    background:#202c3d;
+    left:50%;
+    top:260px;
+    transform:translateX(-50%);
+}
+
+.monitor-base{
+    position:absolute;
+    width:130px;
+    height:10px;
+    background:#202c3d;
+    left:50%;
+    top:295px;
+    transform:translateX(-50%);
+    border-radius:20px;
+}
+
+.person{
+    position:absolute;
+    bottom:22px;
+    left:50%;
+    transform:translateX(-50%);
+    width:260px;
+    height:145px;
+}
+
+.head{
+    position:absolute;
+    width:53px;
+    height:53px;
+    border-radius:50%;
+    background:linear-gradient(145deg,#d39a75,#70452f);
+    left:104px;
+    top:0;
+    box-shadow:0 0 25px rgba(255,160,100,.08);
+}
+
+.hair{
+    position:absolute;
+    width:57px;
+    height:25px;
+    border-radius:50px 50px 15px 15px;
+    background:#111;
+    left:102px;
+    top:-5px;
+}
+
+.body{
+    position:absolute;
+    width:130px;
+    height:105px;
+    background:linear-gradient(135deg,#182536,#090f18);
+    left:65px;
+    top:42px;
+    border-radius:60px 60px 15px 15px;
+    border:1px solid rgba(0,234,255,.1);
+}
+
+.arm{
+    position:absolute;
+    width:110px;
+    height:23px;
+    border-radius:30px;
+    background:#172334;
+    top:84px;
+}
+
+.arm.left{
+    left:15px;
+    transform:rotate(20deg);
+}
+
+.arm.right{
+    right:15px;
+    transform:rotate(-20deg);
+}
+
+.keyboard{
+    position:absolute;
+    width:180px;
+    height:20px;
+    background:#172334;
+    border-radius:6px;
+    left:40px;
+    bottom:12px;
+    transform:perspective(100px) rotateX(30deg);
+}
+
+.floating-orb{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(.2px);
+    animation:float 5s ease-in-out infinite;
+}
+
+.orb1{
+    width:95px;
+    height:95px;
+    background:radial-gradient(circle,#00eaff,transparent 65%);
+    top:15px;
+    right:10px;
+}
+
+.orb2{
+    width:130px;
+    height:130px;
+    background:radial-gradient(circle,#7b35ff,transparent 65%);
+    bottom:5px;
+    left:-25px;
+    animation-delay:1.2s;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-17px)}
+}
+
+/* =========================================================
+   SLIDER
+   ========================================================= */
+
+.showcase{
+    padding-top:80px;
+}
+
+.slider{
+    position:relative;
+    overflow:hidden;
+    margin-top:45px;
+    border-radius:28px;
+}
+
+.slides{
+    display:flex;
+    transition:transform .65s cubic-bezier(.77,0,.18,1);
+}
+
+.slide{
+    min-width:100%;
+    min-height:430px;
+    position:relative;
+    padding:50px;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+}
+
+.slide-war{
+    background:
+        radial-gradient(circle at 75% 30%,rgba(255,200,87,.2),transparent 25%),
+        linear-gradient(120deg,#180b08,#32130b 50%,#080b11);
+}
+
+.slide-coin{
+    background:
+        radial-gradient(circle at 75% 25%,rgba(0,234,255,.22),transparent 25%),
+        linear-gradient(120deg,#04121c,#071c2a 50%,#100b24);
+}
+
+.slide-apps{
+    background:
+        radial-gradient(circle at 75% 25%,rgba(123,53,255,.2),transparent 25%),
+        linear-gradient(120deg,#0b0819,#14102d 50%,#080b11);
+}
+
+.slide-content{
+    position:relative;
+    z-index:5;
+    width:55%;
+}
+
+.slide-content .mini{
+    color:var(--cyan);
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-weight:900;
+    font-size:10px;
+}
+
+.slide-content h2{
+    font-size:clamp(36px,5vw,64px);
+    margin:13px 0;
+    font-weight:1000;
+    letter-spacing:-3px;
+}
+
+.slide-content p{
+    color:#aeb8c9;
+    max-width:580px;
+    line-height:1.8;
+    font-size:14px;
+}
+
+.slide-buttons{
+    margin-top:25px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+/* WAR VISUAL */
+
+.war-visual{
+    position:absolute;
+    right:4%;
+    bottom:0;
+    width:46%;
+    height:100%;
+}
+
+.castle{
+    position:absolute;
+    bottom:80px;
+    right:15px;
+    width:300px;
+    height:190px;
+}
+
+.tower{
+    position:absolute;
+    bottom:0;
+    width:70px;
+    height:145px;
+    background:linear-gradient(90deg,#382218,#8c5a36,#332017);
+    border:2px solid rgba(255,200,87,.2);
+}
+
+.tower:before{
+    content:"";
+    position:absolute;
+    top:-20px;
+    left:-7px;
+    width:82px;
+    height:25px;
+    background:repeating-linear-gradient(90deg,#4a2d1d 0 17px,#9a6942 17px 28px);
+}
+
+.tower.left{
+    left:0;
+}
+
+.tower.right{
+    right:0;
+}
+
+.wall{
+    position:absolute;
+    left:55px;
+    bottom:0;
+    width:190px;
+    height:105px;
+    background:linear-gradient(#70452b,#321e15);
+    border-top:5px solid #9c704b;
+}
+
+.gate{
+    position:absolute;
+    bottom:0;
+    left:122px;
+    width:50px;
+    height:70px;
+    border-radius:50px 50px 0 0;
+    background:#100c0a;
+    border:5px solid #5c3924;
+}
+
+.flag{
+    position:absolute;
+    top:-85px;
+    left:35px;
+    width:5px;
+    height:85px;
+    background:#6e492e;
+}
+
+.flag:after{
+    content:"";
+    position:absolute;
+    left:3px;
+    top:0;
+    width:60px;
+    height:35px;
+    background:linear-gradient(135deg,#b21722,#4e070c);
+    clip-path:polygon(0 0,100% 15%,80% 50%,100% 85%,0 100%);
+}
+
+.knight{
+    position:absolute;
+    bottom:22px;
+    left:40px;
+    font-size:75px;
+    filter:drop-shadow(0 15px 12px #000);
+}
+
+.elephant{
+    position:absolute;
+    bottom:24px;
+    right:15px;
+    font-size:85px;
+    filter:drop-shadow(0 15px 12px #000);
+}
+
+.catapult{
+    position:absolute;
+    bottom:34px;
+    left:145px;
+    font-size:58px;
+    transform:rotate(-7deg);
+}
+
+/* COIN VISUAL */
+
+.coin-scene{
+    position:absolute;
+    right:6%;
+    top:50%;
+    transform:translateY(-50%);
+    width:40%;
+    height:300px;
+    display:grid;
+    place-items:center;
+}
+
+.coin-core{
+    width:185px;
+    height:185px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:
+        radial-gradient(circle at 30% 25%,#d9fbff,#159fe8 30%,#0751ba 65%,#050d27);
+    border:5px solid rgba(0,234,255,.5);
+    box-shadow:
+        0 0 35px rgba(0,234,255,.45),
+        0 0 100px rgba(0,234,255,.15),
+        inset 0 0 35px rgba(255,255,255,.2);
+    animation:coinFloat 4s ease-in-out infinite;
+}
+
+.coin-core span{
+    font-size:75px;
+    font-weight:1000;
+    color:white;
+    text-shadow:0 4px 25px #001a50;
+}
+
+.ring{
+    position:absolute;
+    width:260px;
+    height:260px;
+    border:1px solid rgba(0,234,255,.25);
+    border-radius:50%;
+    animation:spin 9s linear infinite;
+}
+
+.ring2{
+    width:330px;
+    height:160px;
+    transform:rotate(25deg);
+    border-color:rgba(123,53,255,.3);
+    animation-direction:reverse;
+}
+
+@keyframes coinFloat{
+    0%,100%{transform:translateY(0) rotateY(0)}
+    50%{transform:translateY(-13px) rotateY(8deg)}
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+/* SLIDER CONTROLS */
+
+.slider-arrow{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:43px;
+    height:43px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(0,0,0,.45);
+    color:white;
+    z-index:10;
+}
+
+.slider-arrow:hover{
+    background:rgba(0,234,255,.18);
+    border-color:var(--cyan);
+}
+
+.prev{left:18px}
+.next{right:18px}
+
+.dots{
+    position:absolute;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:7px;
+    z-index:10;
+}
+
+.dot{
+    width:24px;
+    height:4px;
+    border:0;
+    border-radius:20px;
+    background:rgba(255,255,255,.2);
+}
+
+.dot.active{
+    background:var(--cyan);
+    box-shadow:0 0 15px var(--cyan);
+}
+
+/* =========================================================
+   PROJECTS
+   ========================================================= */
+
+.projects-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+    margin-top:50px;
+}
+
+.project-card{
+    position:relative;
+    overflow:hidden;
+    border-radius:27px;
+    transition:.35s;
+}
+
+.project-card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(0,234,255,.35);
+}
+
+.project-art{
+    height:260px;
+    position:relative;
+    overflow:hidden;
+}
+
+.war-art{
+    background:
+        radial-gradient(circle at 50% 50%,rgba(255,183,77,.15),transparent 30%),
+        linear-gradient(145deg,#25100b,#0b0808);
+}
+
+.coin-art{
+    background:
+        radial-gradient(circle at center,rgba(0,234,255,.16),transparent 35%),
+        linear-gradient(145deg,#06121c,#08091b);
+}
+
+.project-info{
+    padding:27px;
+}
+
+.project-info h3{
+    font-size:28px;
+    font-weight:1000;
+}
+
+.project-info p{
+    color:var(--muted);
+    line-height:1.8;
+    font-size:14px;
+    margin-top:11px;
+}
+
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:18px;
+}
+
+.tag{
+    padding:6px 10px;
+    border-radius:8px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.07);
+    color:#b9c5d6;
+    font-size:10px;
+    font-weight:800;
+}
+
+/* =========================================================
+   OLD WAR ART
+   ========================================================= */
+
+.battle-ground{
+    position:absolute;
+    inset:0;
+}
+
+.moon{
+    position:absolute;
+    width:85px;
+    height:85px;
+    border-radius:50%;
+    background:#ffd77d;
+    right:45px;
+    top:30px;
+    box-shadow:0 0 45px rgba(255,200,87,.25);
+}
+
+.battle-castle{
+    position:absolute;
+    bottom:0;
+    right:25px;
+    width:250px;
+    height:160px;
+}
+
+.battle-tower{
+    position:absolute;
+    bottom:0;
+    width:55px;
+    height:125px;
+    background:linear-gradient(90deg,#2d201b,#795339,#2c1b15);
+}
+
+.battle-tower:nth-child(1){left:0}
+.battle-tower:nth-child(2){right:0}
+
+.battle-wall{
+    position:absolute;
+    left:45px;
+    bottom:0;
+    width:160px;
+    height:85px;
+    background:#5b3d2c;
+}
+
+.battle-flag{
+    position:absolute;
+    left:26px;
+    top:-80px;
+    width:4px;
+    height:80px;
+    background:#806042;
+}
+
+.battle-flag:after{
+    content:"";
+    position:absolute;
+    width:48px;
+    height:27px;
+    background:#9f2029;
+    clip-path:polygon(0 0,100% 20%,80% 50%,100% 80%,0 100%);
+}
+
+.warrior{
+    position:absolute;
+    bottom:10px;
+    left:90px;
+    font-size:68px;
+}
+
+.archer{
+    position:absolute;
+    bottom:13px;
+    left:20px;
+    font-size:52px;
+}
+
+.horse{
+    position:absolute;
+    bottom:7px;
+    right:80px;
+    font-size:64px;
+}
+
+/* =========================================================
+   SERVICES
+   ========================================================= */
+
+.services{
+    background:linear-gradient(180deg,transparent,rgba(0,234,255,.025),transparent);
+}
+
+.services-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    margin-top:50px;
+}
+
+.service{
+    padding:27px 20px;
+    border-radius:21px;
+    transition:.3s;
+}
+
+.service:hover{
+    transform:translateY(-7px);
+    border-color:rgba(0,234,255,.3);
+}
+
+.service-icon{
+    width:52px;
+    height:52px;
+    display:grid;
+    place-items:center;
+    border-radius:15px;
+    background:rgba(0,234,255,.08);
+    color:var(--cyan);
+    font-size:23px;
+    margin-bottom:19px;
+}
+
+.service h3{
+    font-size:16px;
+    font-weight:900;
+}
+
+.service p{
+    color:var(--muted);
+    line-height:1.7;
+    font-size:12px;
+    margin-top:9px;
+}
+
+/* =========================================================
+   TECHNOLOGY
+   ========================================================= */
+
+.tech-grid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:13px;
+    margin-top:45px;
+}
+
+.tech{
+    text-align:center;
+    padding:22px 8px;
+    border-radius:17px;
+    transition:.3s;
+}
+
+.tech:hover{
+    transform:translateY(-5px);
+    border-color:rgba(0,234,255,.3);
+}
+
+.tech-symbol{
+    font-size:29px;
+    font-weight:1000;
+    color:var(--cyan);
+    margin-bottom:10px;
+}
+
+.tech span{
+    display:block;
+    font-size:11px;
+    font-weight:800;
+}
+
+.tech small{
+    display:block;
+    color:#64748b;
+    font-size:9px;
+    margin-top:4px;
+}
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.status-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    margin-top:45px;
+}
+
+.status-card{
+    padding:25px;
+    border-radius:20px;
+}
+
+.status-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.status-name{
+    font-weight:900;
+}
+
+.status-pill{
+    padding:5px 9px;
+    border-radius:30px;
+    font-size:9px;
+    font-weight:900;
+    text-transform:uppercase;
+}
+
+.in-dev{
+    color:#ffcf67;
+    background:rgba(255,200,87,.1);
+}
+
+.active{
+    color:#56ef9a;
+    background:rgba(50,232,117,.1);
+}
+
+.progress{
+    height:6px;
+    border-radius:20px;
+    background:rgba(255,255,255,.06);
+    overflow:hidden;
+    margin-top:20px;
+}
+
+.progress i{
+    display:block;
+    height:100%;
+    border-radius:20px;
+    background:linear-gradient(90deg,var(--cyan),var(--purple));
+}
+
+.status-card p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+    margin-top:13px;
+}
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+
+.about-layout{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.about-box{
+    padding:35px;
+    border-radius:28px;
+}
+
+.about-box p{
+    color:var(--muted);
+    line-height:1.9;
+    font-size:14px;
+    margin-top:18px;
+}
+
+.about-list{
+    margin-top:24px;
+    display:grid;
+    gap:12px;
+}
+
+.about-list div{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#c7d1df;
+    font-size:13px;
+}
+
+.check{
+    width:24px;
+    height:24px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:rgba(0,234,255,.1);
+    color:var(--cyan);
+    font-size:11px;
+}
+
+.about-orb{
+    min-height:400px;
+    border-radius:30px;
+    position:relative;
+    overflow:hidden;
+    display:grid;
+    place-items:center;
+}
+
+.nexus-symbol{
+    width:230px;
+    height:230px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#04efff,#0c5de0,#6b1fff);
+    display:grid;
+    place-items:center;
+    box-shadow:
+        0 0 70px rgba(0,234,255,.25),
+        inset 0 0 40px rgba(255,255,255,.2);
+    transform:rotate(-8deg);
+}
+
+.nexus-symbol span{
+    font-size:120px;
+    font-weight:1000;
+    color:white;
+    text-shadow:0 8px 30px rgba(0,0,0,.35);
+}
+
+/* =========================================================
+   NEWSLETTER
+   ========================================================= */
+
+.newsletter{
+    padding:70px 0;
+}
+
+.newsletter-box{
+    border-radius:28px;
+    padding:45px;
+    text-align:center;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(0,234,255,.12),transparent 30%),
+        radial-gradient(circle at 80% 80%,rgba(123,53,255,.14),transparent 30%),
+        var(--card);
+}
+
+.newsletter-box h2{
+    font-size:clamp(28px,4vw,45px);
+    font-weight:1000;
+}
+
+.newsletter-box p{
+    color:var(--muted);
+    margin:12px auto 25px;
+    max-width:600px;
+    line-height:1.7;
+    font-size:13px;
+}
+
+.newsletter-form{
+    max-width:600px;
+    margin:auto;
+    display:flex;
+    gap:8px;
+}
+
+.newsletter-form input{
+    flex:1;
+    min-width:0;
+    padding:14px 16px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:#060b13;
+    color:white;
+    outline:none;
+}
+
+.newsletter-form input:focus{
+    border-color:var(--cyan);
+}
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+.contact-layout{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:25px;
+    margin-top:45px;
+}
+
+.contact-info,
+.contact-form{
+    border-radius:25px;
+    padding:30px;
+}
+
+.contact-info h3{
+    font-size:24px;
+    font-weight:1000;
+}
+
+.contact-info>p{
+    color:var(--muted);
+    line-height:1.8;
+    margin-top:10px;
+    font-size:13px;
+}
+
+.contact-item{
+    margin-top:25px;
+    display:flex;
+    gap:13px;
+    align-items:flex-start;
+}
+
+.contact-icon{
+    min-width:42px;
+    height:42px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:rgba(0,234,255,.08);
+    color:var(--cyan);
+}
+
+.contact-item strong{
+    display:block;
+    font-size:12px;
+}
+
+.contact-item span{
+    display:block;
+    color:#8491a5;
+    font-size:11px;
+    margin-top:4px;
+    word-break:break-word;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:13px;
+}
+
+.field{
+    margin-bottom:13px;
+}
+
+.field label{
+    display:block;
+    color:#aab5c7;
+    font-size:10px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:7px;
+}
+
+.field input,
+.field textarea,
+.field select{
+    width:100%;
+    padding:13px 14px;
+    border-radius:11px;
+    border:1px solid var(--border);
+    background:#050a12;
+    color:white;
+    outline:none;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+    border-color:var(--cyan);
+    box-shadow:0 0 0 3px rgba(0,234,255,.06);
+}
+
+.field textarea{
+    resize:vertical;
+    min-height:125px;
+}
+
+/* =========================================================
+   LEGAL
+   ========================================================= */
+
+.legal-links{
+    display:flex;
+    justify-content:center;
+    gap:22px;
+    flex-wrap:wrap;
+    margin-top:28px;
+}
+
+.legal-links button{
+    border:0;
+    background:none;
+    color:#718096;
+    font-size:11px;
+}
+
+.legal-links button:hover{
+    color:var(--cyan);
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:3000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(12px);
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(800px,100%);
+    max-height:85vh;
+    overflow:hidden;
+    border-radius:25px;
+    background:#0a101b;
+    border:1px solid rgba(0,234,255,.2);
+    box-shadow:0 30px 100px #000;
+}
+
+.modal-head{
+    padding:20px 23px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+}
+
+.modal-head h3{
+    font-size:19px;
+}
+
+.close-modal{
+    width:35px;
+    height:35px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#111a29;
+    color:white;
+}
+
+.modal-content{
+    padding:25px;
+    overflow-y:auto;
+    max-height:calc(85vh - 75px);
+    color:#aeb8c8;
+    font-size:13px;
+    line-height:1.9;
+}
+
+.modal-content h4{
+    color:var(--cyan);
+    margin:18px 0 7px;
+}
+
+.modal-content h4:first-child{
+    margin-top:0;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer{
+    border-top:1px solid var(--border);
+    padding:55px 0 25px;
+    background:#03050a;
+}
+
+.footer-top{
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr;
+    gap:40px;
+}
+
+.footer-brand p{
+    color:#68768a;
+    line-height:1.8;
+    font-size:12px;
+    max-width:380px;
+    margin-top:15px;
+}
+
+.footer-column h4{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    margin-bottom:16px;
+}
+
+.footer-column a{
+    display:block;
+    color:#68768a;
+    font-size:12px;
+    margin-bottom:9px;
+}
+
+.footer-column a:hover{
+    color:var(--cyan);
+}
+
+.footer-bottom{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+    color:#566174;
+    font-size:10px;
+}
+
+/* =========================================================
+   COOKIE
+   ========================================================= */
+
+.cookie{
+    position:fixed;
+    left:20px;
+    bottom:20px;
+    z-index:2000;
+    width:min(420px,calc(100% - 40px));
+    padding:19px;
+    border-radius:18px;
+    display:none;
+}
+
+.cookie.show{
+    display:block;
+}
+
+.cookie p{
+    color:#9aa7b9;
+    line-height:1.6;
+    font-size:11px;
+}
+
+.cookie-buttons{
+    display:flex;
+    gap:7px;
+    margin-top:12px;
+}
+
+.cookie button{
+    padding:8px 13px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:#111a29;
+    color:white;
+    font-size:10px;
+    font-weight:800;
+}
+
+.cookie .accept{
+    background:var(--cyan);
+    color:#001014;
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast{
+    position:fixed;
+    top:95px;
+    right:20px;
+    z-index:5000;
+    background:#101a28;
+    border:1px solid rgba(0,234,255,.25);
+    border-radius:13px;
+    padding:13px 17px;
+    color:#c9faff;
+    font-size:12px;
+    transform:translateX(150%);
+    transition:.4s;
+    box-shadow:var(--shadow);
+}
+
+.toast.show{
+    transform:translateX(0);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:1000px){
+
+    .nav-links,
+    .nav-cta{
+        display:none;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .hero-layout,
+    .about-layout{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        padding-top:125px;
+    }
+
+    .hero-visual{
+        min-height:420px;
+    }
+
+    .services-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .tech-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .status-grid{
+        grid-template-columns:1fr;
+    }
+
+    .footer-top{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .mobile-nav{
+        position:absolute;
+        top:78px;
+        left:0;
+        right:0;
+        display:none;
+        padding:15px;
+        background:rgba(4,7,13,.97);
+        border-bottom:1px solid var(--border);
+    }
+
+    .mobile-nav.show{
+        display:block;
+    }
+
+    .mobile-nav a{
+        display:block;
+        padding:13px;
+        color:#b9c4d5;
+        font-weight:800;
+        font-size:13px;
+        border-bottom:1px solid rgba(255,255,255,.04);
+    }
+}
+
+@media(max-width:720px){
+
+    section{
+        padding:75px 0;
+    }
+
+    .hero h1{
+        letter-spacing:-2px;
+    }
+
+    .hero-stats{
+        gap:20px;
+        flex-wrap:wrap;
+    }
+
+    .hero-visual{
+        min-height:350px;
+    }
+
+    .dev-scene{
+        height:350px;
+    }
+
+    .monitor{
+        width:230px;
+        height:145px;
+        top:65px;
+    }
+
+    .monitor-stand{
+        top:215px;
+    }
+
+    .monitor-base{
+        top:250px;
+    }
+
+    .person{
+        transform:translateX(-50%) scale(.75);
+        transform-origin:bottom;
+    }
+
+    .slide{
+        min-height:600px;
+        padding:35px 25px;
+        align-items:flex-start;
+    }
+
+    .slide-content{
+        width:100%;
+    }
+
+    .war-visual,
+    .coin-scene{
+        width:100%;
+        right:0;
+        top:auto;
+        bottom:0;
+        transform:none;
+        height:270px;
+    }
+
+    .coin-scene{
+        bottom:15px;
+    }
+
+    .projects-grid,
+    .contact-layout{
+        grid-template-columns:1fr;
+    }
+
+    .services-grid{
+        grid-template-columns:1fr;
+    }
+
+    .tech-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .newsletter-box{
+        padding:30px 18px;
+    }
+
+    .newsletter-form{
+        flex-direction:column;
+    }
+
+    .footer-top{
+        grid-template-columns:1fr;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
+    }
+
+    .slider-arrow{
+        display:none;
+    }
+}
+
+@media(max-width:450px){
+
+    .hero-buttons .btn{
+        width:100%;
+    }
+
+    .section-title{
+        letter-spacing:-1px;
+    }
+
+    .project-art{
+        height:220px;
+    }
+
+    .slide{
+        min-height:610px;
+    }
+
+    .castle{
+        transform:scale(.75);
+        transform-origin:bottom right;
+    }
+
+    .coin-core{
+        width:145px;
+        height:145px;
+    }
+
+    .coin-core span{
+        font-size:60px;
+    }
+
+    .ring{
+        width:210px;
+        height:210px;
+    }
+
+    .ring2{
+        width:260px;
+        height:130px;
+    }
+}
+
+</style>
 </head>
-<body class="selection:bg-cyan-500 selection:text-black">
 
-    <!-- STARFIELD BACKGROUND CANVAS -->
-    <canvas id="starfield" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+<body>
 
-    <!-- HEADER NAVIGATION -->
-    <header class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-gray-800/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand Logo -->
-            <a href="#" class="flex items-center space-x-3 group">
-                <div class="w-10 h-10 rounded-xl gradient-btn flex items-center justify-center text-black font-bold text-xl shadow-lg group-hover:rotate-12 transition-transform">
-                    N
-                </div>
-                <div>
-                    <span class="text-xl font-extrabold tracking-wider text-white">NEXUSCRAFT</span>
-                    <span class="text-xs block text-cyan-400 font-semibold tracking-widest uppercase">PLAY STUDIO 2026</span>
-                </div>
-            </a>
+<canvas id="particles"></canvas>
+<div class="grid-bg"></div>
 
-            <!-- Desktop Nav Links -->
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
-                <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
-                <a href="#games" class="hover:text-cyan-400 transition-colors">Games & Apps</a>
-                <a href="#tech" class="hover:text-cyan-400 transition-colors">Technologies</a>
-                <a href="#minigame" class="hover:text-cyan-400 transition-colors">Arcade Zone</a>
-                <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
-            </nav>
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
 
-            <!-- CTA Button -->
-            <a href="#contact" class="hidden md:inline-flex items-center space-x-2 gradient-btn text-black font-bold px-5 py-2.5 rounded-xl text-sm">
-                <span>Let's Build</span>
-                <i class="fa-solid fa-rocket"></i>
-            </a>
+<header class="header">
 
-            <!-- Mobile Menu Toggle -->
-            <button id="menu-btn" class="md:hidden text-gray-300 hover:text-white text-2xl focus:outline-none">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
+<div class="nav">
 
-        <!-- Mobile Menu Drawer -->
-        <div id="mobile-menu" class="hidden md:hidden glass-panel border-b border-gray-800 px-6 py-4 space-y-4 text-center">
-            <a href="#about" class="block text-gray-300 hover:text-cyan-400 py-2">About</a>
-            <a href="#games" class="block text-gray-300 hover:text-cyan-400 py-2">Games & Apps</a>
-            <a href="#tech" class="block text-gray-300 hover:text-cyan-400 py-2">Technologies</a>
-            <a href="#minigame" class="block text-gray-300 hover:text-cyan-400 py-2">Arcade Zone</a>
-            <a href="#contact" class="block text-cyan-400 font-bold py-2">Contact Us</a>
-        </div>
-    </header>
+<a href="#home" class="logo">
+    <div class="logo-mark">N</div>
 
-    <!-- HERO SECTION -->
-    <section id="about" class="relative pt-36 pb-20 md:pt-48 md:pb-32 px-4 max-w-7xl mx-auto z-10 flex flex-col items-center text-center">
-        <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-panel text-cyan-400 text-xs sm:text-sm font-semibold mb-8 border border-cyan-500/30 animate-pulse">
-            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-            <span>OFFICIAL STUDIO PORTAL • 2026 EDITION</span>
-        </div>
-
-        <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-tight max-w-5xl mb-6">
-            Crafting Next-Gen <span class="gradient-text">3D Games</span> & High-Performance <span class="gradient-text">Mobile Apps</span>
-        </h1>
-
-        <p class="text-gray-400 text-base sm:text-lg max-w-2xl mb-10 leading-relaxed">
-            Welcome to <strong class="text-white">NexusCraft Play Studio 2026</strong>. We engineer immersive realtime games, interactive digital experiences, and scalable Android applications powered by cutting-edge engines.
-        </p>
-
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-            <a href="#games" class="w-full sm:w-auto gradient-btn text-black font-extrabold px-8 py-4 rounded-xl flex items-center justify-center space-x-3 text-base shadow-lg">
-                <i class="fa-solid fa-gamepad text-lg"></i>
-                <span>Explore Projects</span>
-            </a>
-            <a href="#minigame" class="w-full sm:w-auto glass-panel hover:bg-gray-800/80 text-white font-semibold px-8 py-4 rounded-xl flex items-center justify-center space-x-3 text-base border border-gray-700 transition-all">
-                <i class="fa-solid fa-play text-cyan-400"></i>
-                <span>Play Live Demo</span>
-            </a>
-        </div>
-
-        <!-- Quick Stats Banner -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 w-full max-w-4xl">
-            <div class="glass-panel p-6 rounded-2xl border border-gray-800">
-                <h3 class="text-3xl font-extrabold text-cyan-400">Unity 6</h3>
-                <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Engine Power</p>
-            </div>
-            <div class="glass-panel p-6 rounded-2xl border border-gray-800">
-                <h3 class="text-3xl font-extrabold text-purple-400">UE 5.4</h3>
-                <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Graphics Tech</p>
-            </div>
-            <div class="glass-panel p-6 rounded-2xl border border-gray-800">
-                <h3 class="text-3xl font-extrabold text-cyan-400">Android</h3>
-                <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">App Framework</p>
-            </div>
-            <div class="glass-panel p-6 rounded-2xl border border-gray-800">
-                <h3 class="text-3xl font-extrabold text-purple-400">2026</h3>
-                <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Active Vision</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FEATURED PROJECTS / GAMES SHOWCASE -->
-    <section id="games" class="py-20 relative z-10 max-w-7xl mx-auto px-4">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl sm:text-5xl font-extrabold text-white">Featured <span class="gradient-text">Showcase</span></h2>
-            <p class="text-gray-400 mt-3">Our flagship mobile applications & 3D real-time game titles</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Project Card 1 -->
-            <div class="glass-panel rounded-3xl overflow-hidden border border-gray-800 hover:border-cyan-500/50 transition-all duration-300 group hover:-translate-y-2">
-                <div class="h-64 bg-gradient-to-br from-purple-900/40 to-slate-900 relative flex items-center justify-center p-6 overflow-hidden">
-                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-500/10 via-transparent to-transparent"></div>
-                    <i class="fa-solid fa-chess-knight text-8xl text-cyan-400/20 group-hover:scale-110 group-hover:text-cyan-400/40 transition-all duration-500"></i>
-                    <span class="absolute top-4 left-4 bg-purple-600/80 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">3D Strategy Game</span>
-                </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">War Of Sultans</h3>
-                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">
-                        An ambitious 3D Real-Time Strategy (RTS) mobile game built using Unity Engine and Unreal Engine 5 workflows. Features custom RTS camera controls, dynamic historical terrain, interactive combat units, and immersive audio logic.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-6">
-                        <span class="text-xs bg-gray-800 text-cyan-300 px-3 py-1 rounded-lg">Unity 6</span>
-                        <span class="text-xs bg-gray-800 text-purple-300 px-3 py-1 rounded-lg">Unreal Engine 5</span>
-                        <span class="text-xs bg-gray-800 text-gray-300 px-3 py-1 rounded-lg">FMOD Sound</span>
-                        <span class="text-xs bg-gray-800 text-gray-300 px-3 py-1 rounded-lg">Blender 3D</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project Card 2 (UPDATED TO NEXUS COIN) -->
-            <div class="glass-panel rounded-3xl overflow-hidden border border-gray-800 hover:border-cyan-500/50 transition-all duration-300 group hover:-translate-y-2">
-                <div class="h-64 bg-gradient-to-br from-amber-900/40 to-slate-900 relative flex items-center justify-center p-6 overflow-hidden">
-                    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent"></div>
-                    <i class="fa-solid fa-coins text-8xl text-amber-400/20 group-hover:scale-110 group-hover:text-amber-400/40 transition-all duration-500"></i>
-                    <span class="absolute top-4 left-4 bg-amber-600/80 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Android App & Rewards</span>
-                </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold text-white group-hover:text-amber-400 transition-colors">Nexus Coin</h3>
-                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">
-                        A modern Kotlin-backed Android application featuring interactive task tracking, secure virtual rewards, server-side validation, duplicate transaction protection, and monetized cloud services.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-6">
-                        <span class="text-xs bg-gray-800 text-amber-300 px-3 py-1 rounded-lg">Android Studio</span>
-                        <span class="text-xs bg-gray-800 text-purple-300 px-3 py-1 rounded-lg">Kotlin</span>
-                        <span class="text-xs bg-gray-800 text-cyan-300 px-3 py-1 rounded-lg">Firebase App Check</span>
-                        <span class="text-xs bg-gray-800 text-gray-300 px-3 py-1 rounded-lg">Cloud Rewards</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TECH STACK MATRIX -->
-    <section id="tech" class="py-20 relative z-10 glass-panel border-y border-gray-800/80">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-5xl font-extrabold text-white">Development <span class="gradient-text">Arsenal</span></h2>
-                <p class="text-gray-400 mt-3">Industry-standard tools powering NexusCraft Play Studio</p>
-            </div>
-
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 text-center">
-                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-cyan-400/50 transition-all">
-                    <i class="fa-brands fa-unity text-4xl text-white mb-3"></i>
-                    <h4 class="font-bold text-sm text-gray-200">Unity Engine</h4>
-                    <p class="text-xs text-gray-500 mt-1">Game Dev</p>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-cyan-400/50 transition-all">
-                    <i class="fa-solid fa-cubes text-4xl text-purple-400 mb-3"></i>
-                    <h4 class="font-bold text-sm text-gray-200">Unreal Engine</h4>
-                    <p class="text-xs text-gray-500 mt-1">High-End 3D</p>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-cyan-400/50 transition-all">
-                    <i class="fa-brands fa-android text-4xl text-green-400 mb-3"></i>
-                    <h4 class="font-bold text-sm text-gray-200">Android Kotlin</h4>
-                    <p class="text-xs text-gray-500 mt-1">Native Apps</p>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-cyan-400/50 transition-all">
-                    <i class="fa-brands fa-flutter text-4xl text-cyan-400 mb-3"></i>
-                    <h4 class="font-bold text-sm text-gray-200">FlutterFlow</h4>
-                    <p class="text-xs text-gray-500 mt-1">Cross Platform</p>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-cyan-400/50 transition-all">
-                    <i class="fa-solid fa-fire text-4xl text-amber-500 mb-3"></i>
-                    <h4 class="font-bold text-sm text-gray-200">Firebase</h4>
-                    <p class="text-xs text-gray-500 mt-1">Backend DB</p>
-                </div>
-                <div class="glass-panel p-6 rounded-2xl border border-gray-800 hover:border-cyan-400/50 transition-all">
-                    <i class="fa-solid fa-shapes text-4xl text-orange-400 mb-3"></i>
-                    <h4 class="font-bold text-sm text-gray-200">Blender 3D</h4>
-                    <p class="text-xs text-gray-500 mt-1">Assets & Rigging</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- INTERACTIVE ARCADE ZONE / MINI GAME DEMO -->
-    <section id="minigame" class="py-20 relative z-10 max-w-5xl mx-auto px-4">
-        <div class="glass-panel p-6 sm:p-10 rounded-3xl border border-cyan-500/30 text-center relative overflow-hidden">
-            <div class="mb-6">
-                <span class="bg-cyan-500/20 text-cyan-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Live Interactive Arcade</span>
-                <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-2">Nexus Space Defender</h2>
-                <p class="text-gray-400 text-sm mt-1">Move your ship with <kbd class="bg-gray-800 px-2 py-0.5 rounded text-cyan-400">←</kbd> <kbd class="bg-gray-800 px-2 py-0.5 rounded text-cyan-400">→</kbd> or Click/Touch controls to shoot meteorites!</p>
-            </div>
-
-            <!-- Canvas Game Screen -->
-            <div class="relative w-full max-w-lg mx-auto h-72 bg-black/80 rounded-2xl border border-gray-700 overflow-hidden shadow-2xl flex flex-col items-center justify-center">
-                <canvas id="arcadeCanvas" class="w-full h-full block"></canvas>
-                <div id="gameOverlay" class="absolute inset-0 bg-black/80 flex flex-col items-center justify-center p-4">
-                    <i class="fa-solid fa-rocket text-5xl text-cyan-400 mb-3 animate-bounce"></i>
-                    <h3 class="text-xl font-bold text-white mb-2">Ready Player One?</h3>
-                    <button onclick="startGame()" class="gradient-btn text-black font-extrabold px-6 py-2.5 rounded-xl text-sm shadow-lg">
-                        START GAME
-                    </button>
-                </div>
-            </div>
-
-            <!-- Game Score Bar -->
-            <div class="flex items-center justify-between max-w-lg mx-auto mt-4 px-4 py-2 glass-panel rounded-xl text-sm">
-                <div class="text-gray-400">Score: <span id="gameScore" class="text-cyan-400 font-bold text-base">0</span></div>
-                <div class="text-gray-400">Status: <span id="gameStatus" class="text-green-400 font-semibold">Idle</span></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT & INQUIRY SECTION -->
-    <section id="contact" class="py-20 relative z-10 max-w-4xl mx-auto px-4">
-        <div class="glass-panel p-8 sm:p-12 rounded-3xl border border-gray-800 shadow-2xl">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Start Your Project With <span class="gradient-text">NexusCraft</span></h2>
-                <p class="text-gray-400 text-sm mt-2">Have a mobile app idea or 3D game concept for 2026? Let's connect.</p>
-            </div>
-
-            <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Your Name</label>
-                        <input type="text" required placeholder="John Doe" class="w-full bg-slate-900/80 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Your Email</label>
-                        <input type="email" required placeholder="john@example.com" class="w-full bg-slate-900/80 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Project Category</label>
-                    <select class="w-full bg-slate-900/80 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors">
-                        <option>3D Game Development (Unity / UE5)</option>
-                        <option>Android Application (Kotlin / Compose)</option>
-                        <option>Cross-Platform App Development</option>
-                        <option>UI/UX & Brand Design</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Project Details</label>
-                    <textarea rows="4" required placeholder="Tell us about your project requirements..." class="w-full bg-slate-900/80 border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400 transition-colors"></textarea>
-                </div>
-
-                <button type="submit" class="w-full gradient-btn text-black font-extrabold py-4 rounded-xl text-base shadow-xl flex items-center justify-center space-x-2">
-                    <span>Send Project Inquiry</span>
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
-            </form>
-            <div id="formSuccess" class="hidden mt-4 p-4 rounded-xl bg-green-500/20 border border-green-500/40 text-green-300 text-center text-sm font-semibold">
-                ✓ Message received! NexusCraft Play Studio will respond shortly.
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="py-12 relative z-10 glass-panel border-t border-gray-800 text-center text-gray-500 text-sm">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div class="flex items-center space-x-2">
-                <div class="w-6 h-6 rounded-lg gradient-btn flex items-center justify-center text-black font-bold text-xs">N</div>
-                <span class="text-white font-bold">NEXUSCRAFT PLAY STUDIO</span>
-            </div>
-            
-            <!-- Legal Policy Navigation -->
-            <div class="flex flex-wrap justify-center gap-6 text-xs text-gray-400 font-medium">
-                <button onclick="openModal('security')" class="hover:text-cyan-400 transition-colors">Security Policy</button>
-                <button onclick="openModal('privacy')" class="hover:text-cyan-400 transition-colors">Privacy Policy</button>
-                <button onclick="openModal('terms')" class="hover:text-cyan-400 transition-colors">Terms & Conditions</button>
-            </div>
-
-            <p class="text-xs">© 2026 NexusCraft Play Studio. All rights reserved.</p>
-            <div class="flex space-x-4 text-gray-400 text-lg">
-                <a href="#" class="hover:text-cyan-400"><i class="fa-brands fa-github"></i></a>
-                <a href="#" class="hover:text-cyan-400"><i class="fa-brands fa-android"></i></a>
-                <a href="#" class="hover:text-cyan-400"><i class="fa-brands fa-youtube"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- LEGAL POLICIES POPUP MODAL -->
-    <div id="legalModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="glass-panel w-full max-w-3xl rounded-3xl border border-cyan-500/40 p-6 sm:p-8 flex flex-col max-h-[85vh]">
-            <div class="flex items-center justify-between pb-4 border-b border-gray-800">
-                <h3 id="modalTitle" class="text-2xl font-extrabold text-white">Policy Title</h3>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-white text-2xl">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div id="modalContent" class="modal-scroll overflow-y-auto py-6 text-gray-300 text-sm leading-relaxed space-y-4">
-                <!-- Content injected dynamically via JS -->
-            </div>
-            <div class="pt-4 border-t border-gray-800 text-right">
-                <button onclick="closeModal()" class="gradient-btn text-black font-bold px-6 py-2 rounded-xl text-sm">
-                    Close
-                </button>
-            </div>
-        </div>
+    <div class="logo-text">
+        <strong>NEXUSCRAFT</strong>
+        <small>PLAY STUDIO 2026</small>
     </div>
+</a>
 
-    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
-    <script>
-        // LEGAL MODAL DATA & FUNCTIONS
-        const modalData = {
-            security: {
-                title: "Security Policy",
-                content: `
-                    <h4 class="text-lg font-bold text-cyan-400 mb-2">NexusCraft Play Studio Security Safeguards</h4>
-                    <p>NexusCraft Play Studio uses reasonable technical and administrative safeguards designed to protect user accounts, virtual rewards, transactions, and application services across all our games and mobile applications. These safeguards may include authentication, server-side reward validation, advertising-provider verification, duplicate-transaction protection, Firebase App Check, platform integrity controls, access restrictions, and monitoring for suspicious activity.</p>
-                    <p class="mt-3">No internet-connected service can guarantee absolute security. Users must protect their login credentials and must not attempt to bypass, manipulate, reverse-engineer, exploit, automate, or interfere with any application's security, reward, advertising, mining, or server systems published by NexusCraft Play Studio.</p>
-                    <p class="mt-3">Suspected fraudulent or abusive activity across any of our apps or games may result in reward rejection, investigation, suspension, or account termination in accordance with our applicable Terms & Conditions.</p>
-                `
-            },
-            privacy: {
-                title: "Privacy Policy",
-                content: `
-                    <h4 class="text-lg font-bold text-cyan-400 mb-2">Privacy Policy - NexusCraft Play Studio (2026)</h4>
-                    <p>NexusCraft Play Studio respects user privacy. We do not sell or rent personal information to third parties. Data collected through our games and applications (including Firebase telemetry, ad IDs, and account information) is strictly used for account validation, security verification, and game/app service optimization.</p>
-                    <p class="mt-3">We partner with verified advertising providers and cloud services to ensure secure transactions and server validation across all titles published under NexusCraft Play Studio. By using our mobile applications and services, you consent to our data safety standards.</p>
-                `
-            },
-            terms: {
-                title: "Terms & Conditions",
-                content: `
-                    <h4 class="text-lg font-bold text-cyan-400 mb-2">Terms & Conditions</h4>
-                    <p>By accessing or using any game, app, or service provided by NexusCraft Play Studio, you agree to comply with our platform policies. Automated bots, exploits, reverse-engineering, or unauthorized modifications to application code and virtual currency/reward servers are strictly prohibited.</p>
-                    <p class="mt-3">NexusCraft Play Studio reserves the right to terminate accounts or restrict access to any user involved in fraudulent activity or security exploitation without prior notice.</p>
-                `
-            }
-        };
+<nav>
+<ul class="nav-links">
 
-        function openModal(type) {
-            const data = modalData[type];
-            if (data) {
-                document.getElementById('modalTitle').innerText = data.title;
-                document.getElementById('modalContent').innerHTML = data.content;
-                document.getElementById('legalModal').classList.remove('hidden');
-            }
-        }
+<li><a href="#home">Home</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#technology">Technology</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#contact">Contact</a></li>
 
-        function closeModal() {
-            document.getElementById('legalModal').classList.add('hidden');
-        }
+</ul>
+</nav>
 
-        // MOBILE MENU TOGGLE
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+<a href="#contact" class="nav-cta">Start a Project</a>
 
-        // CONTACT FORM HANDLER
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            document.getElementById('formSuccess').classList.remove('hidden');
-            document.getElementById('contactForm').reset();
-            setTimeout(() => {
-                document.getElementById('formSuccess').classList.add('hidden');
-            }, 5000);
-        }
+<button class="menu-btn" id="menuBtn">☰</button>
 
-        // STARFIELD BACKGROUND ANIMATION
-        const starCanvas = document.getElementById('starfield');
-        const starCtx = starCanvas.getContext('2d');
-        let stars = [];
+</div>
 
-        function resizeStarfield() {
-            starCanvas.width = window.innerWidth;
-            starCanvas.height = window.innerHeight;
-            stars = [];
-            for (let i = 0; i < 120; i++) {
-                stars.push({
-                    x: Math.random() * starCanvas.width,
-                    y: Math.random() * starCanvas.height,
-                    size: Math.random() * 1.8,
-                    speed: Math.random() * 0.5 + 0.1,
-                    alpha: Math.random()
-                });
-            }
-        }
-        window.addEventListener('resize', resizeStarfield);
-        resizeStarfield();
+<div class="mobile-nav" id="mobileNav">
+<a href="#home">Home</a>
+<a href="#projects">Projects</a>
+<a href="#services">Services</a>
+<a href="#technology">Technology</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</div>
 
-        function animateStars() {
-            starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
-            starCtx.fillStyle = '#ffffff';
-            stars.forEach(star => {
-                starCtx.globalAlpha = star.alpha;
-                starCtx.beginPath();
-                starCtx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                starCtx.fill();
-                star.y += star.speed;
-                if (star.y > starCanvas.height) star.y = 0;
-            });
-            requestAnimationFrame(animateStars);
-        }
-        animateStars();
+</header>
 
-        // MINI GAME DEMO (SPACE DEFENDER)
-        const gCanvas = document.getElementById('arcadeCanvas');
-        const gCtx = gCanvas.getContext('2d');
-        let gameRunning = false;
-        let score = 0;
-        let playerX = 150;
-        let bullets = [];
-        let meteors = [];
 
-        function startGame() {
-            gCanvas.width = gCanvas.clientWidth;
-            gCanvas.height = gCanvas.clientHeight;
-            playerX = gCanvas.width / 2;
-            bullets = [];
-            meteors = [];
-            score = 0;
-            document.getElementById('gameScore').innerText = score;
-            document.getElementById('gameStatus').innerText = 'Playing';
-            document.getElementById('gameStatus').className = 'text-cyan-400 font-semibold';
-            document.getElementById('gameOverlay').classList.add('hidden');
-            gameRunning = true;
-            gameLoop();
-        }
+<!-- =========================================================
+     HERO
+     ========================================================= -->
 
-        // Mouse/Touch controls
-        gCanvas.addEventListener('mousemove', (e) => {
-            const rect = gCanvas.getBoundingClientRect();
-            playerX = e.clientX - rect.left;
-        });
+<section class="hero" id="home">
 
-        gCanvas.addEventListener('click', () => {
-            if (gameRunning) {
-                bullets.push({ x: playerX, y: gCanvas.height - 20 });
-            }
-        });
+<div class="container hero-layout">
 
-        // Keyboard controls
-        window.addEventListener('keydown', (e) => {
-            if (!gameRunning) return;
-            if (e.key === 'ArrowLeft') playerX = Math.max(20, playerX - 15);
-            if (e.key === 'ArrowRight') playerX = Math.min(gCanvas.width - 20, playerX + 15);
-            if (e.key === ' ') bullets.push({ x: playerX, y: gCanvas.height - 20 });
-        });
+<div>
 
-        function gameLoop() {
-            if (!gameRunning) return;
-            gCtx.fillStyle = '#050811';
-            gCtx.fillRect(0, 0, gCanvas.width, gCanvas.height);
+<div class="badge">
+<span class="pulse-dot"></span>
+NEXUSCRAFT PLAY STUDIO • 2026
+</div>
 
-            // Draw Ship
-            gCtx.fillStyle = '#00f2fe';
-            gCtx.beginPath();
-            gCtx.moveTo(playerX, gCanvas.height - 25);
-            gCtx.lineTo(playerX - 12, gCanvas.height - 5);
-            gCtx.lineTo(playerX + 12, gCanvas.height - 5);
-            gCtx.fill();
+<h1>
+Building
+<span class="gradient">Games.</span><br>
+Apps.<br>
+Digital Worlds.
+</h1>
 
-            // Spawn Meteors
-            if (Math.random() < 0.04) {
-                meteors.push({ x: Math.random() * (gCanvas.width - 20) + 10, y: 0, speed: Math.random() * 2 + 1 });
-            }
+<p class="hero-text">
+Welcome to <strong>NexusCraft Play Studio</strong> — an independent
+digital development studio focused on immersive games, mobile
+applications, interactive experiences and innovative technology.
+</p>
 
-            // Update Bullets
-            bullets.forEach((b, bi) => {
-                b.y -= 5;
-                gCtx.fillStyle = '#7f00ff';
-                gCtx.fillRect(b.x - 2, b.y, 4, 8);
+<div class="hero-buttons">
 
-                // Collision Detection
-                meteors.forEach((m, mi) => {
-                    if (Math.hypot(b.x - m.x, b.y - m.y) < 15) {
-                        bullets.splice(bi, 1);
-                        meteors.splice(mi, 1);
-                        score += 10;
-                        document.getElementById('gameScore').innerText = score;
-                    }
-                });
-            });
+<a href="#projects" class="btn btn-primary">
+Explore Projects →
+</a>
 
-            // Update Meteors
-            meteors.forEach((m, mi) => {
-                m.y += m.speed;
-                gCtx.fillStyle = '#ff4b5c';
-                gCtx.beginPath();
-                gCtx.arc(m.x, m.y, 10, 0, Math.PI * 2);
-                gCtx.fill();
+<a href="#contact" class="btn btn-outline">
+Work With Us
+</a>
 
-                // Game Over check
-                if (m.y > gCanvas.height) {
-                    gameRunning = false;
-                    document.getElementById('gameStatus').innerText = 'Game Over';
-                    document.getElementById('gameStatus').className = 'text-red-400 font-semibold';
-                    document.getElementById('gameOverlay').classList.remove('hidden');
-                }
-            });
+</div>
 
-            requestAnimationFrame(gameLoop);
-        }
-    </script>
-</body>
-</html>
+<div class="hero-stats">
+
+<div class="stat">
+<strong>02+</strong>
+<span>Active Projects</span>
+</div>
+
+<div class="stat">
+<strong>2026</strong>
+<span>Studio Vision</span>
+</div>
+
+<div class="stat">
+<strong>∞</strong>
+<span>Ideas</span>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- Developer scene -->
+
+<div class="hero-visual">
+
+<div class="dev-scene">
+
+<div class="dev-grid"></div>
+
+<div class="floating-orb orb1"></div>
+<div class="floating-orb orb2"></div>
+
+<div class="monitor">
+
+<div class="monitor-screen">
+
+<div class="code-lines">
+<span>&lt;<i>studio</i>&gt;</span><br>
+&nbsp;&nbsp;<i>project</i> = "NexusCraft";<br>
+&nbsp;&nbsp;<i>engine</i> = "NextGen";<br>
+&nbsp;&nbsp;<i>world</i> = create();<br>
+&nbsp;&nbsp;<i>game</i>.build();<br>
+&nbsp;&nbsp;<i>future</i>.launch();<br>
+<span>&lt;/<i>studio</i>&gt;</span>
+</div>
+
+</div>
+
+</div>
+
+<div class="monitor-stand"></div>
+<div class="monitor-base"></div>
+
+<div class="person">
+
+<div class="hair"></div>
+<div class="head"></div>
+<div class="body"></div>
+
+<div class="arm left"></div>
+<div class="arm right"></div>
+
+<div class="keyboard"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     FEATURED SLIDER
+     ========================================================= -->
+
+<section class="showcase">
+
+<div class="container">
+
+<div class="section-label">Featured Universe</div>
+
+<h2 class="section-title">
+Explore Our <span>World</span>
+</h2>
+
+<p class="section-subtitle">
+Games, applications and experimental digital products currently being
+developed by NexusCraft Play Studio.
+</p>
+
+
+<div class="slider glass">
+
+<div class="slides" id="slides">
+
+
+<!-- SLIDE 1 -->
+
+<div class="slide slide-war">
+
+<div class="slide-content">
+
+<div class="mini">3D Strategy • In Development</div>
+
+<h2>WAR OF SULTAN</h2>
+
+<p>
+Enter an ancient battlefield where kingdoms clash for power.
+Command warriors, cavalry, archers and siege forces while defending
+massive castles and conquering enemy territories.
+</p>
+
+<div class="slide-buttons">
+
+<a href="#projects" class="btn btn-primary">
+View Game
+</a>
+
+<a href="#contact" class="btn btn-outline">
+Game Updates
+</a>
+
+</div>
+
+</div>
+
+
+<div class="war-visual">
+
+<div class="castle">
+
+<div class="tower left"></div>
+<div class="tower right"></div>
+<div class="wall"></div>
+<div class="gate"></div>
+<div class="flag"></div>
+
+</div>
+
+<div class="knight">🛡️</div>
+<div class="elephant">🐘</div>
+<div class="catapult">🏹</div>
+
+</div>
+
+</div>
+
+
+<!-- SLIDE 2 -->
+
+<div class="slide slide-coin">
+
+<div class="slide-content">
+
+<div class="mini">Rewards Technology • In Development</div>
+
+<h2>NEXUS COIN</h2>
+
+<p>
+A futuristic rewards and digital activity platform concept combining
+modern mobile interfaces, virtual balances, tasks and technology
+designed around an evolving digital ecosystem.
+</p>
+
+<div class="slide-buttons">
+
+<a href="#projects" class="btn btn-primary">
+Explore Nexus Coin
+</a>
+
+<a href="#contact" class="btn btn-outline">
+Project Information
+</a>
+
+</div>
+
+</div>
+
+
+<div class="coin-scene">
+
+<div class="ring"></div>
+<div class="ring ring2"></div>
+
+<div class="coin-core">
+<span>N</span>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SLIDE 3 -->
+
+<div class="slide slide-apps">
+
+<div class="slide-content">
+
+<div class="mini">Mobile Applications</div>
+
+<h2>MORE TO COME</h2>
+
+<p>
+NexusCraft Play Studio is building a growing portfolio of mobile
+applications, entertainment products, digital utilities and
+experimental technology projects.
+</p>
+
+<div class="slide-buttons">
+
+<a href="#services" class="btn btn-primary">
+What We Build
+</a>
+
+<a href="#contact" class="btn btn-outline">
+Contact Studio
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<button class="slider-arrow prev" id="prev">‹</button>
+<button class="slider-arrow next" id="next">›</button>
+
+<div class="dots">
+
+<button class="dot active" data-slide="0"></button>
+<button class="dot" data-slide="1"></button>
+<button class="dot" data-slide="2"></button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     PROJECTS
+     ========================================================= -->
+
+<section id="projects">
+
+<div class="container">
+
+<div class="section-label">Our Projects</div>
+
+<h2 class="section-title">
+Current <span>Projects</span>
+</h2>
+
+<p class="section-subtitle">
+Two core projects are currently being developed under the NexusCraft
+Play Studio brand.
+</p>
+
+
+<div class="projects-grid">
+
+
+<!-- WAR OF SULTAN -->
+
+<article class="project-card glass">
+
+<div class="project-art war-art">
+
+<div class="battle-ground">
+
+<div class="moon"></div>
+
+<div class="battle-castle">
+
+<div class="battle-tower"></div>
+<div class="battle-wall"></div>
+<div class="battle-tower"></div>
+<div class="battle-flag"></div>
+
+</div>
+
+<div class="archer">🏹</div>
+<div class="warrior">⚔️</div>
+<div class="horse">🐎</div>
+
+</div>
+
+</div>
+
+<div class="project-info">
+
+<div class="section-label">GAME • IN DEVELOPMENT</div>
+
+<h3>War of Sultan</h3>
+
+<p>
+A historical-inspired strategy and warfare experience featuring
+ancient kingdoms, castles, cavalry, archers, elephants, swords,
+siege warfare and large battlefield environments.
+</p>
+
+<div class="tags">
+
+<span class="tag">3D Strategy</span>
+<span class="tag">Castle Warfare</span>
+<span class="tag">Cavalry</span>
+<span class="tag">Archers</span>
+<span class="tag">Siege Weapons</span>
+<span class="tag">Mobile Game</span>
+
+</div>
+
+</div>
+
+</article>
+
+
+<!-- NEXUS COIN -->
+
+<article class="project-card glass">
+
+<div class="project-art coin-art">
+
+<div class="coin-scene">
+
+<div class="ring"></div>
+<div class="ring ring2"></div>
+
+<div class="coin-core">
+<span>N</span>
+</div>
+
+</div>
+
+</div>
+
+<div class="project-info">
+
+<div class="section-label">APP • IN DEVELOPMENT</div>
+
+<h3>Nexus Coin</h3>
+
+<p>
+A futuristic digital rewards and mining-inspired application concept
+with virtual balances, activity systems, user progression and an
+evolving digital ecosystem.
+</p>
+
+<div class="tags">
+
+<span class="tag">Android</span>
+<span class="tag">Rewards</span>
+<span class="tag">Digital Ecosystem</span>
+<span class="tag">Virtual Balance</span>
+<span class="tag">Security</span>
+<span class="tag">In Development</span>
+
+</div>
+
+</div>
+
+</article>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     SERVICES
+     ========================================================= -->
+
+<section class="services" id="services">
+
+<div class="container">
+
+<div class="section-label">What We Create</div>
+
+<h2 class="section-title">
+Built For <span>Digital Experiences</span>
+</h2>
+
+<p class="section-subtitle">
+From games to mobile applications, NexusCraft explores multiple areas
+of modern digital product development.
+</p>
+
+
+<div class="services-grid">
+
+
+<div class="service glass">
+<div class="service-icon">🎮</div>
+<h3>Entertainment Games</h3>
+<p>
+Immersive mobile games, strategy games, action experiences and
+interactive entertainment.
+</p>
+</div>
+
+
+<div class="service glass">
+<div class="service-icon">📱</div>
+<h3>Mobile Applications</h3>
+<p>
+Android-focused applications with modern interfaces, scalable
+architecture and user-friendly experiences.
+</p>
+</div>
+
+
+<div class="service glass">
+<div class="service-icon">⛏️</div>
+<h3>Mining & Rewards</h3>
+<p>
+Digital reward concepts, virtual balances and mining-inspired
+technology experiences under active development.
+</p>
+</div>
+
+
+<div class="service glass">
+<div class="service-icon">🧠</div>
+<h3>Experimental Tech</h3>
+<p>
+New ideas, prototypes, interactive tools and experimental digital
+products for future releases.
+</p>
+</div>
+
+
+<div class="service glass">
+<div class="service-icon">🏰</div>
+<h3>3D Worlds</h3>
+<p>
+Large environments, castles, battlefields, characters and
+interactive 3D experiences.
+</p>
+</div>
+
+
+<div class="service glass">
+<div class="service-icon">⚙️</div>
+<h3>Backend Systems</h3>
+<p>
+Secure cloud-connected systems, application data and service
+infrastructure for supported products.
+</p>
+</div>
+
+
+<div class="service glass">
+<div class="service-icon">🎨</div>
+<h3>UI / UX</h3>
+<p>
+Modern interfaces designed for clarity, engagement and a premium
+digital experience.
+</p>
+</div>
+
+
+<div class="service glass">
+<div class="service-icon">🚀</div>
+<h3>Future Products</h3>
+<p>
+A continuously growing portfolio of games, apps and digital
+experiences.
+</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     TECHNOLOGY
+     ========================================================= -->
+
+<section id="technology">
+
+<div class="container">
+
+<div class="section-label">Development Stack</div>
+
+<h2 class="section-title">
+Our <span>Technology</span>
+</h2>
+
+<p class="section-subtitle">
+A flexible technology ecosystem for games, applications, 3D assets,
+cloud services and digital products.
+</p>
+
+
+<div class="tech-grid">
+
+<div class="tech glass">
+<div class="tech-symbol">U</div>
+<span>Unity</span>
+<small>Game Engine</small>
+</div>
+
+<div class="tech glass">
+<div class="tech-symbol">UE</div>
+<span>Unreal</span>
+<small>3D Graphics</small>
+</div>
+
+<div class="tech glass">
+<div class="tech-symbol">K</div>
+<span>Kotlin</span>
+<small>Android</small>
+</div>
+
+<div class="tech glass">
+<div class="tech-symbol">F</div>
+<span>Firebase</span>
+<small>Cloud Services</small>
+</div>
+
+<div class="tech glass">
+<div class="tech-symbol">B</div>
+<span>Blender</span>
+<small>3D Assets</small>
+</div>
+
+<div class="tech glass">
+<div class="tech-symbol">JS</div>
+<span>JavaScript</span>
+<small>Web Technology</small>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     PROJECT STATUS
+     ========================================================= -->
+
+<section>
+
+<div class="container">
+
+<div class="section-label">Development Tracker</div>
+
+<h2 class="section-title">
+Project <span>Status</span>
+</h2>
+
+<div class="status-grid">
+
+<div class="status-card glass">
+
+<div class="status-top">
+<span class="status-name">War of Sultan</span>
+<span class="status-pill in-dev">In Development</span>
+</div>
+
+<div class="progress">
+<i style="width:48
